@@ -61,6 +61,16 @@ services:
       # The API for Kapacitor is served on port 9092
       - "9092:9092"
 
+  kapacitor-udf:
+    build:
+      context: ./images/kapacitor-udf
+      dockerfile: ./Dockerfile
+    image: "kapacitor-udf"
+    volumes:
+      - ./kapacitor/data/:/var/lib/prophet/
+    depends_on:
+      - kapacitor
+
   chronograf:
     # Full tag list: https://hub.docker.com/r/library/chronograf/tags/
     build:
