@@ -158,5 +158,7 @@ EOF
 }
 
 pushd `dirname $0` > /dev/null
+    sed '/^\[smtp\]/ { n ; s/enabled = false/enabled = true/ ; n ; s/localhost/10.111.100.69/ ; n ; n ; n ; n ; n ; n ; n ; s/""/"kapacitor@bakemark.com"/ }' \
+      kapacitor/config/kapacitor.conf.template > kapacitor/config/kapacitor.conf
     sandbox $@
 popd > /dev/null
