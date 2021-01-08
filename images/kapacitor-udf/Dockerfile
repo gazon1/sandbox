@@ -12,6 +12,8 @@ RUN apk add --no-cache \
     musl-dev \
     py-pip \
     cython \
+    gfortran \
+    perl \
     wget
 WORKDIR /wheels
 
