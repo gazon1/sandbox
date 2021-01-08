@@ -50,7 +50,7 @@ RUN python -m pip install --upgrade pip \
     && rm -rf /wheels
 # RUN echo "backend: TkAgg" > matplotlibrc
 ADD prophet_udf.py /usr/bin/prophet_udf
-WORKDIR /sample
+# WORKDIR /sample
 # ADD example_wp_log_peyton_manning.csv /sample
 VOLUME /var/lib/prophet/
 
