@@ -218,6 +218,10 @@ if __name__ == '__main__':
     path = "/tmp/prophet.sock"
     if len(sys.argv) == 2:
         path = sys.argv[1]
+
+    if os.path.exists(path):
+        os.remove(path)
+
     server = Server(path, accepter())
     logger.info("Started server")
     server.serve()
