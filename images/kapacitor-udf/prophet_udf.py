@@ -99,16 +99,15 @@ class ProphetHandler(Handler):
             success = False
             msg.append('changepointPriorScale must be positive')
 
-
-
         response = udf_pb2.Response()
         response.init.success = success
         response.init.error = '\n'.join(msg)
         return response
 
     def snapshot(self):
+        logger.info("UDF - snapshot")
         response = udf_pb2.Response()
-        response.snapshot.snapshot = ''
+        response.snapshot.snapshot = b''
         return response
 
     def restore(self, restore_req):
