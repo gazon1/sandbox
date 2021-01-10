@@ -11,7 +11,6 @@ from fbprophet import Prophet
 
 
 import logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s:%(name)s: %(message)s')
 logger = logging.getLogger()
 
 version = '0.1'
@@ -108,9 +107,11 @@ class ProphetHandler(Handler):
         logger.info("UDF - snapshot")
         response = udf_pb2.Response()
         response.snapshot.snapshot = b''
+        logger.info("UDF - snapshot done.")
         return response
 
     def restore(self, restore_req):
+        logger.info("UDF - restore")
         response = udf_pb2.Response()
         response.restore.success = False
         response.restore.error = 'not implemented'
@@ -214,12 +215,20 @@ class accepter(object):
 #    logger.info("Agent finished")
 
 if __name__ == '__main__':
+
     path = "/tmp/prophet.sock"
     if len(sys.argv) == 2:
         path = sys.argv[1]
 
     if os.path.exists(path):
         os.remove(path)
+
+    basedir = os.path.dirname(path)
+    script_name = os.path.splitext(os.path.basename(__file__))[0]
+    logfile = "{}.log".format(script_name)
+    logpath = os.path.join(basedir, logfile)
+
+    logging.basicConfig(filename=logpath, level=logging.DEBUG)
 
     server = Server(path, accepter())
     logger.info("Started server")
