@@ -56,4 +56,8 @@ ADD prophet_udf.py /usr/bin/prophet_udf
 # ADD example_wp_log_peyton_manning.csv /sample
 VOLUME /var/lib/prophet/
 
-ENTRYPOINT ["python", "/usr/bin/prophet_udf", "/var/lib/prophet/prophet.sock"]
+# need to pass -u to python to have unbuffered stdin/stdout
+# read about that in proto file
+# otherwise you'll see `broken pipe` error
+ENTRYPOINT ["python", "-u", "/usr/bin/prophet_udf", "/var/lib/prophet/prophet.sock"]
+
